@@ -56,7 +56,7 @@ Dự án đi kèm file cơ sở dữ liệu mẫu `bookshop.sql` chứa cấu tr
 *(Lưu ý: Bạn cũng có thể chạy `php artisan db:seed` nếu muốn đặt lại hoặc khởi tạo dữ liệu mặc định).*
 
 ### 4. Build Assets (CSS & JS)
-Để giao diện hiển thị đúng với thiết kế premium (sử dụng TailwindCSS và Javascript cho giỏ hàng):
+Để giao diện hiển thị đúng với thiết kế (sử dụng TailwindCSS và Javascript cho giỏ hàng):
 ```bash
 # Build production bundle
 npm run build
