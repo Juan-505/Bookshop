@@ -50,7 +50,7 @@ Dự án đi kèm file cơ sở dữ liệu mẫu `bookshop.sql` chứa cấu tr
 1. Tạo một cơ sở dữ liệu mới trong MySQL có tên là `bookshop`.
 2. Import file `bookshop.sql` (nằm ở thư mục cha hoặc thư mục dự án của bạn) vào cơ sở dữ liệu `bookshop` thông qua phpMyAdmin, Navicat hoặc dòng lệnh:
    ```bash
-   mysql -u root -p bookshop < ../bookshop.sql
+   mysql -u root -p bookshop < database/mysql/bookshop.sql
    ```
 
 *(Lưu ý: Bạn cũng có thể chạy `php artisan db:seed` nếu muốn đặt lại hoặc khởi tạo dữ liệu mặc định).*
@@ -77,12 +77,12 @@ Hệ thống đã có sẵn 2 tài khoản phân quyền dùng thử:
 
 1. **Tài khoản Admin (Quản trị viên)**
    - **Email**: `admin@bookshop.test`
-   - **Mật khẩu**: `123456`
+   - **Mật khẩu**: `password`
    - *Quyền hạn*: Quản lý danh mục, quản lý sản phẩm (sách), quản lý danh sách & phân quyền user, quản lý & cập nhật trạng thái đơn hàng.
 
 2. **Tài khoản User (Khách hàng)**
    - **Email**: `user@bookshop.test`
-   - **Mật khẩu**: `123456`
+   - **Mật khẩu**: `password`
    - *Quyền hạn*: Xem danh sách sản phẩm, lọc/tìm kiếm sách, thêm vào giỏ hàng, đặt hàng (checkout), xem thông tin cá nhân và lịch sử đơn hàng tại Dashboard.
 
 ---
