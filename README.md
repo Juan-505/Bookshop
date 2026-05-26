@@ -48,7 +48,7 @@ npm install
 ### 3. Nhập dữ liệu cơ sở dữ liệu (Database)
 Dự án đi kèm file cơ sở dữ liệu mẫu `bookshop.sql` chứa cấu trúc và dữ liệu đầy đủ của sách, danh mục và người dùng:
 1. Tạo một cơ sở dữ liệu mới trong MySQL có tên là `bookshop`.
-2. Import file `bookshop.sql` vào cơ sở dữ liệu `bookshop` (ở trong file database/mysql) thông qua phpMyAdmin hoặc dòng lệnh:
+2. Import file `bookshop.sql` (ở trong folder database/mysql) vào cơ sở dữ liệu `bookshop` thông qua phpMyAdmin hoặc dòng lệnh:
    ```bash
    mysql -u root -p bookshop < database/mysql/bookshop.sql
    ```
