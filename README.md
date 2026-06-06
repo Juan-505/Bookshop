@@ -48,15 +48,13 @@ npm install
 ### 3. Nhập dữ liệu cơ sở dữ liệu (Database)
 Dự án đi kèm file cơ sở dữ liệu mẫu `bookshop.sql` chứa cấu trúc và dữ liệu đầy đủ của sách, danh mục và người dùng:
 1. Tạo một cơ sở dữ liệu mới trong MySQL có tên là `bookshop`.
-2. Import file `bookshop.sql` (nằm ở thư mục cha hoặc thư mục dự án của bạn) vào cơ sở dữ liệu `bookshop` thông qua phpMyAdmin, Navicat hoặc dòng lệnh:
+2. Import file `bookshop.sql` (ở trong folder database/mysql) vào cơ sở dữ liệu `bookshop` thông qua phpMyAdmin hoặc dòng lệnh:
    ```bash
    mysql -u root -p bookshop < database/mysql/bookshop.sql
    ```
-
-*(Lưu ý: Bạn cũng có thể chạy `php artisan db:seed` nếu muốn đặt lại hoặc khởi tạo dữ liệu mặc định).*
-
+   
 ### 4. Build Assets (CSS & JS)
-Để giao diện hiển thị đúng với thiết kế premium (sử dụng TailwindCSS và Javascript cho giỏ hàng):
+Để giao diện hiển thị đúng với thiết kế (sử dụng TailwindCSS và Javascript cho giỏ hàng):
 ```bash
 # Build production bundle
 npm run build
