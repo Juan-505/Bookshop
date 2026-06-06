@@ -51,6 +51,11 @@ class CheckoutController extends Controller
             ];
         });
 
+        // Calculate total amount for the order (quantity * unit price per item)
+        $total = $items->sum(function ($item) {
+            return ((int) $item['quantity']) * ((int) ($item['book']?->final_price ?? 0));
+        });
+
         abort_if($items->isEmpty(), 422, 'Giỏ hàng trống.');
 
         $firstItem = $items->first();
