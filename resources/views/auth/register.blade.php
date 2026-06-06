@@ -27,23 +27,26 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('register') }}" class="space-y-5" novalidate>
+            <form method="POST" action="{{ route('register') }}" class="space-y-5" novalidate autocomplete="off">
                 @csrf
+                <!-- Hidden fields to reduce browser credential autofill -->
+                <input type="text" name="fake_username" autocomplete="username" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" />
+                <input type="password" name="fake_password" autocomplete="new-password" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" />
                 <div>
                     <label class="mb-2 block text-[11px] font-bold uppercase tracking-widest text-slate-400">Họ và tên</label>
-                    <input name="name" value="{{ old('name') }}" type="text" class="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3.5 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10" required>
+                    <input name="name" value="{{ old('name') }}" type="text" autocomplete="name" class="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3.5 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10" required>
                 </div>
                 <div>
                     <label class="mb-2 block text-[11px] font-bold uppercase tracking-widest text-slate-400">Địa chỉ email</label>
-                    <input name="email" value="{{ old('email') }}" type="email" class="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3.5 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10" required>
+                    <input name="email" value="{{ old('email') }}" type="email" autocomplete="off" class="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3.5 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10" required>
                 </div>
                 <div>
                     <label class="mb-2 block text-[11px] font-bold uppercase tracking-widest text-slate-400">Mật khẩu</label>
-                    <input name="password" type="password" class="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3.5 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10" required>
+                    <input name="password" type="password" autocomplete="new-password" class="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3.5 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10" required>
                 </div>
                 <div>
                     <label class="mb-2 block text-[11px] font-bold uppercase tracking-widest text-slate-400">Xác nhận mật khẩu</label>
-                    <input name="password_confirmation" type="password" class="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3.5 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10" required>
+                    <input name="password_confirmation" type="password" autocomplete="new-password" class="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3.5 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10" required>
                 </div>
                 
                 <input type="hidden" name="agree_terms" value="on">
