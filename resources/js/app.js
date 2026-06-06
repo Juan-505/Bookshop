@@ -278,10 +278,15 @@ document.addEventListener('click', (event) => {
 	const decButton = event.target.closest('[data-guest-cart-dec]');
 	if (decButton) {
 		const productId = Number(decButton.getAttribute('data-guest-cart-dec'));
-		const items = readGuestCart();
-		const item = items.find((entry) => Number(entry.product_id) === productId);
-		if (item) {
-			item.quantity = Math.max(1, item.quantity - 1);
+		let items = readGuestCart();
+		const itemIndex = items.findIndex((entry) => Number(entry.product_id) === productId);
+		if (itemIndex !== -1) {
+			const item = items[itemIndex];
+			if (item.quantity <= 1) {
+				items.splice(itemIndex, 1);
+			} else {
+				item.quantity -= 1;
+			}
 			writeGuestCart(items);
 			renderGuestCartPage();
 		}
@@ -307,8 +312,12 @@ document.addEventListener('click', (event) => {
 	if (authDec) {
 		const itemId = authDec.getAttribute('data-cart-dec');
 		const qtyInput = document.querySelector(`[data-cart-qty="${itemId}"]`);
-		const current = Math.max(1, Number(qtyInput?.value || 1) - 1);
-		submitCartMutation(`/cart/items/${itemId}`, 'PATCH', current);
+		const currentQty = Number(qtyInput?.value || 1);
+		if (currentQty <= 1) {
+			submitCartMutation(`/cart/items/${itemId}`, 'DELETE');
+		} else {
+			submitCartMutation(`/cart/items/${itemId}`, 'PATCH', currentQty - 1);
+		}
 	}
 
 	const authRemove = event.target.closest('[data-cart-remove]');

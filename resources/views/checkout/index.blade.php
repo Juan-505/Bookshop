@@ -11,7 +11,7 @@
                     </div>
                     <div>
                         <label class="mb-2 block text-sm text-slate-600">Số điện thoại</label>
-                        <input name="phone_number" value="{{ old('phone_number') }}" inputmode="numeric" pattern="[0-9]+" class="w-full rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 outline-none focus:border-emerald-300 focus:bg-white" required>
+                        <input name="phone_number" value="{{ old('phone_number', auth()->user()->phone_number ?? auth()->user()->sdt ?? '') }}" inputmode="numeric" pattern="[0-9]+" class="w-full rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 outline-none focus:border-emerald-300 focus:bg-white" required>
                         <p class="mt-1 text-xs text-slate-500">Chỉ nhập số, không khoảng trắng hoặc ký tự đặc biệt.</p>
                     </div>
                     <div>
@@ -32,9 +32,12 @@
                 <div class="mt-4 space-y-3" data-checkout-summary>
                     @auth
                         @forelse($items as $item)
-                            <div class="rounded-2xl bg-slate-50 p-4 text-sm text-slate-700">
-                                <div class="font-medium text-slate-900">{{ $item->book?->tensach }}</div>
-                                <div>Số lượng: {{ $item->quantity }}</div>
+                            <div class="rounded-2xl bg-slate-50 p-4 text-sm text-slate-700 flex items-center gap-4">
+                                <img src="{{ $item->book?->image_url ?? asset('img/books/placeholder.png') }}" alt="{{ $item->book?->tensach }}" class="h-16 w-12 object-contain bg-white rounded p-1 border border-slate-100 flex-shrink-0">
+                                <div class="min-w-0 flex-1">
+                                    <div class="font-semibold text-slate-900 truncate" title="{{ $item->book?->tensach }}">{{ $item->book?->tensach }}</div>
+                                    <div class="text-xs text-slate-500 mt-1">Số lượng: <span class="font-bold text-slate-700">{{ $item->quantity }}</span></div>
+                                </div>
                             </div>
                         @empty
                             <p class="text-sm text-slate-500">Giỏ hàng trống.</p>

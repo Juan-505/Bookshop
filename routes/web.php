@@ -38,6 +38,7 @@ Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])-
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/profile/update', [DashboardController::class, 'updateProfile'])->name('profile.update');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {

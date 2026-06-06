@@ -53,9 +53,14 @@ class CheckoutController extends Controller
 
         abort_if($items->isEmpty(), 422, 'Giỏ hàng trống.');
 
-        $total = $items->sum(fn (array $item) => ((int) $item['quantity']) * ((int) $item['book']->final_price));
+        $firstItem = $items->first();
+        $firstItemName = $firstItem['book']?->tensach ?? 'Sách';
+        $itemsCount = $items->count();
+        $nameOrder = $itemsCount > 1 
+            ? $firstItemName . ' và ' . ($itemsCount - 1) . ' sản phẩm khác' 
+            : $firstItemName;
 
-        $order = DB::transaction(function () use ($data, $items, $total) {
+        $order = DB::transaction(function () use ($data, $items, $total, $nameOrder) {
             $order = Order::create([
                 'user_id' => Auth::id(),
                 'recipient_name_snapshot' => $data['recipient_name'],
@@ -67,6 +72,7 @@ class CheckoutController extends Controller
                 'shipping_fee' => 0,
                 'discount_amount' => 0,
                 'notes' => $data['notes'] ?? null,
+                'name_order' => $nameOrder,
             ]);
 
             foreach ($items as $item) {

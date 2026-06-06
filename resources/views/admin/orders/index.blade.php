@@ -35,7 +35,7 @@
                 </table>
             </div>
 
-            <div>{{ $orders->links() }}</div>
+            <div>{{ $orders->links('components.pagination') }}</div>
         </div>
     </div>
 </x-layouts.app>

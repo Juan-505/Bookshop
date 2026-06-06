@@ -27,15 +27,15 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('login') }}" class="space-y-6" novalidate>
+            <form method="POST" action="{{ route('login') }}" class="space-y-6" novalidate autocomplete="off">
                 @csrf
                 <div>
                     <label class="mb-2.5 block text-[11px] font-bold uppercase tracking-widest text-slate-400">Địa chỉ email</label>
-                    <input name="email" value="{{ old('email') }}" type="email" class="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10">
+                    <input name="email" value="{{ old('email') }}" type="email" autocomplete="off" class="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10">
                 </div>
                 <div>
                     <label class="mb-2.5 block text-[11px] font-bold uppercase tracking-widest text-slate-400">Mật khẩu</label>
-                    <input name="password" type="password" aria-label="Password" class="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10">
+                    <input name="password" type="password" aria-label="Password" autocomplete="new-password" class="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm outline-none transition-all placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10">
                 </div>
                 
                 <div class="flex items-center">

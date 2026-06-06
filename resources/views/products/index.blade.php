@@ -79,7 +79,7 @@
         </div>
 
         <div class="mt-10">
-            {{ $books->links() }}
+            {{ $books->links('components.pagination') }}
         </div>
     </section>
 </x-layouts.app>

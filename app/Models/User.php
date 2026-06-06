@@ -32,6 +32,9 @@ class User extends Authenticatable
         'full_name',
         'password_hash',
         'user_role',
+        'phone_number',
+        'sdt',
+        'ngay_sinh',
     ];
 
     /**
@@ -54,6 +57,7 @@ class User extends Authenticatable
     {
         return [
             'is_active' => 'boolean',
+            'ngay_sinh' => 'date',
         ];
     }
 
