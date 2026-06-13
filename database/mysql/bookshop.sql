@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1:3307
--- Thời gian đã tạo: Th5 26, 2026 lúc 07:24 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Host: 127.0.0.1:3307
+-- Generation Time: Jun 07, 2026 at 11:35 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `bookshop`
+-- Database: `bookshop`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `addresses`
+-- Table structure for table `addresses`
 --
 
 CREATE TABLE `addresses` (
@@ -42,7 +42,7 @@ CREATE TABLE `addresses` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `blog`
+-- Table structure for table `blog`
 --
 
 CREATE TABLE `blog` (
@@ -57,7 +57,7 @@ CREATE TABLE `blog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `blog`
+-- Dumping data for table `blog`
 --
 
 INSERT INTO `blog` (`id`, `ten`, `mota`, `hinh`, `tacgia`, `ngaytao`, `link`, `nguoidoc`) VALUES
@@ -66,7 +66,7 @@ INSERT INTO `blog` (`id`, `ten`, `mota`, `hinh`, `tacgia`, `ngaytao`, `link`, `n
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `cart_items`
+-- Table structure for table `cart_items`
 --
 
 CREATE TABLE `cart_items` (
@@ -77,16 +77,16 @@ CREATE TABLE `cart_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `cart_items`
+-- Dumping data for table `cart_items`
 --
 
 INSERT INTO `cart_items` (`id`, `user_id`, `product_id`, `quantity`) VALUES
-(17, 25, 1, 1);
+(18, 25, 71, 1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -94,6 +94,7 @@ CREATE TABLE `orders` (
   `user_id` int(11) DEFAULT NULL,
   `shipping_address_id` int(11) DEFAULT NULL,
   `recipient_name_snapshot` varchar(255) DEFAULT NULL,
+  `name_order` varchar(255) DEFAULT NULL,
   `phone_number_snapshot` varchar(255) DEFAULT NULL,
   `full_address_snapshot` varchar(255) DEFAULT NULL,
   `order_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -106,19 +107,21 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `orders`
+-- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `user_id`, `shipping_address_id`, `recipient_name_snapshot`, `phone_number_snapshot`, `full_address_snapshot`, `order_date`, `total_amount`, `status`, `shipping_fee`, `discount_amount`, `notes`, `created_at`) VALUES
-(14, 25, NULL, 'Admin', 'rrr', 'rrr', '2026-05-26 09:18:11', 10000.00, 'cancelled', 0.00, 0.00, 'rrr', '2026-05-26 09:03:56'),
-(15, 25, NULL, 'Admin', '00000000000', 'rrr', '2026-05-26 09:17:38', 517920.00, 'cancelled', 0.00, 0.00, NULL, '2026-05-26 09:16:42'),
-(16, 25, NULL, 'Admin', '00000000000', '0000', '2026-05-26 09:18:22', 51000.00, 'shipping', 0.00, 0.00, NULL, '2026-05-26 09:17:05'),
-(17, 24, NULL, 'name', '08684939700', '33333333333333', '2026-05-26 16:41:19', 51000.00, 'cancelled', 0.00, 0.00, '3333333333333333', '2026-05-26 16:40:32');
+INSERT INTO `orders` (`order_id`, `user_id`, `shipping_address_id`, `recipient_name_snapshot`, `name_order`, `phone_number_snapshot`, `full_address_snapshot`, `order_date`, `total_amount`, `status`, `shipping_fee`, `discount_amount`, `notes`, `created_at`) VALUES
+(14, 25, NULL, 'Admin', 'Tập Học Sinh Good Mood - Kẻ Ngang - 80 Trang', 'rrr', 'rrr', '2026-06-06 10:32:53', 10000.00, 'cancelled', 0.00, 0.00, 'rrr', '2026-05-26 09:03:56'),
+(15, 25, NULL, 'Admin', 'Hộp 12 Bút Marker Acrylic - Deli EC189-12', '00000000000', 'rrr', '2026-06-06 10:32:53', 517920.00, 'cancelled', 0.00, 0.00, NULL, '2026-05-26 09:16:42'),
+(16, 25, NULL, 'Admin', 'Búp Sen Xanh (Tái Bản 2020)', '00000000000', '0000', '2026-06-06 10:32:53', 51000.00, 'shipping', 0.00, 0.00, NULL, '2026-05-26 09:17:05'),
+(17, 24, NULL, 'name', 'Việt Nam Danh Tác - Tiêu Sơn Tráng Sĩ', '0123456789', 'Hcm', '2026-06-06 10:32:53', 151340.00, 'pending', 0.00, 0.00, 'gò vấp', '2026-05-31 10:02:02'),
+(18, 24, NULL, 'name', 'Kính Vạn Hoa - Tập 15 - Khách Sạn Hoa Hồng - Quà Tặng Ba Lần - Kính Vạn Hoa (Tái Bản 2022)', '0123456789', 'Hcm', '2026-06-06 10:32:53', 79000.00, 'shipping', 0.00, 0.00, 'quận 7', '2026-05-31 10:06:19'),
+(19, 24, NULL, 'Minh', 'Việt Nam Danh Tác - Tiêu Sơn Tráng Sĩ', '0375587522', 'Hcm', '2026-06-06 12:57:52', 151340.00, 'pending', 0.00, 0.00, 'go vap', '2026-06-06 19:57:52');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_items`
+-- Table structure for table `order_items`
 --
 
 CREATE TABLE `order_items` (
@@ -134,19 +137,21 @@ CREATE TABLE `order_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `order_items`
+-- Dumping data for table `order_items`
 --
 
 INSERT INTO `order_items` (`order_item_id`, `order_id`, `idbook`, `product_name_snapshot`, `quantity`, `unit_price`, `subtotal`, `variation_details`, `created_at`) VALUES
 (15, 14, 70, 'Tập Học Sinh Good Mood - Kẻ Ngang - 80 Trang', 2, 5000.00, 10000.00, NULL, '2026-05-26 09:03:56'),
 (16, 15, 48, 'Hộp 12 Bút Marker Acrylic - Deli EC189-12', 6, 86320.00, 517920.00, NULL, '2026-05-26 09:16:42'),
 (17, 16, 55, 'Búp Sen Xanh (Tái Bản 2020)', 1, 51000.00, 51000.00, NULL, '2026-05-26 09:17:05'),
-(18, 17, 55, 'Búp Sen Xanh (Tái Bản 2020)', 1, 51000.00, 51000.00, NULL, '2026-05-26 16:40:32');
+(18, 17, 54, 'Việt Nam Danh Tác - Tiêu Sơn Tráng Sĩ', 1, 151340.00, 151340.00, NULL, '2026-05-31 10:02:02'),
+(19, 18, 46, 'Kính Vạn Hoa - Tập 15 - Khách Sạn Hoa Hồng - Quà Tặng Ba Lần - Kính Vạn Hoa (Tái Bản 2022)', 1, 79000.00, 79000.00, NULL, '2026-05-31 10:06:19'),
+(20, 19, 54, 'Việt Nam Danh Tác - Tiêu Sơn Tráng Sĩ', 1, 151340.00, 151340.00, NULL, '2026-06-06 19:57:52');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sach`
+-- Table structure for table `sach`
 --
 
 CREATE TABLE `sach` (
@@ -170,7 +175,7 @@ CREATE TABLE `sach` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `sach`
+-- Dumping data for table `sach`
 --
 
 INSERT INTO `sach` (`idbook`, `tensach`, `hinh`, `id_loai`, `dongia`, `hangton`, `daban`, `ngaynhap`, `giamgia`, `nhacungcap`, `tacgia`, `nxb`, `namxb`, `trongluong`, `sotrang`, `mota`, `hinhthuc`) VALUES
@@ -225,7 +230,7 @@ INSERT INTO `sach` (`idbook`, `tensach`, `hinh`, `id_loai`, `dongia`, `hangton`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `theloai`
+-- Table structure for table `theloai`
 --
 
 CREATE TABLE `theloai` (
@@ -235,7 +240,7 @@ CREATE TABLE `theloai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `theloai`
+-- Dumping data for table `theloai`
 --
 
 INSERT INTO `theloai` (`id_loai`, `ten_loai`, `id_cha`) VALUES
@@ -261,7 +266,7 @@ INSERT INTO `theloai` (`id_loai`, `ten_loai`, `id_cha`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -278,32 +283,32 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `email`, `sdt`, `ngay_sinh`, `password_hash`, `user_role`, `full_name`, `phone_number`, `is_active`, `avt`) VALUES
-(24, 'user@bookshop.test', NULL, NULL, '$2y$12$Zy9uwbPSmQIfQVpYBHW/XePxxUZZ3OGitb47D22wxlk6CL7cFxIyO', 'user', 'name', NULL, 1, NULL),
-(25, 'admin@bookshop.test', NULL, NULL, '$2y$12$JzmjQMKiuhEhLvjtUhHMlOA2vd0kpnWVdFizhRfFXvjNaMU5KCMRO', 'admin', 'Admin', NULL, 1, NULL);
+(24, 'user@bookshop.test', '0375587522', '2005-05-28', '$2y$12$UDGamIIa6unSEMUQ/6k2Y.bIwkzTkRchJtbcm7.RgwVEvoXEudB.e', 'user', 'Minh', '0375587522', 1, NULL),
+(25, 'admin@bookshop.test', NULL, NULL, '$2y$12$XX.4w9WBvU14rKltHbUod..zUa5FYXUXQ7BsDO2jqCMSFwsHCD6fm', 'admin', 'Admin', NULL, 1, NULL);
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `addresses`
+-- Indexes for table `addresses`
 --
 ALTER TABLE `addresses`
   ADD PRIMARY KEY (`address_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Chỉ mục cho bảng `blog`
+-- Indexes for table `blog`
 --
 ALTER TABLE `blog`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `cart_items`
+-- Indexes for table `cart_items`
 --
 ALTER TABLE `cart_items`
   ADD PRIMARY KEY (`id`),
@@ -311,7 +316,7 @@ ALTER TABLE `cart_items`
   ADD KEY `product_id` (`product_id`);
 
 --
--- Chỉ mục cho bảng `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
@@ -319,7 +324,7 @@ ALTER TABLE `orders`
   ADD KEY `orders_ibfk_2` (`shipping_address_id`);
 
 --
--- Chỉ mục cho bảng `order_items`
+-- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`order_item_id`),
@@ -327,104 +332,104 @@ ALTER TABLE `order_items`
   ADD KEY `idbook` (`idbook`);
 
 --
--- Chỉ mục cho bảng `sach`
+-- Indexes for table `sach`
 --
 ALTER TABLE `sach`
   ADD PRIMARY KEY (`idbook`),
   ADD KEY `FKrkx2dq16qno5kkhg0whpluq4w` (`id_loai`);
 
 --
--- Chỉ mục cho bảng `theloai`
+-- Indexes for table `theloai`
 --
 ALTER TABLE `theloai`
   ADD PRIMARY KEY (`id_loai`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `addresses`
+-- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
   MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `cart_items`
+-- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT cho bảng `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT cho bảng `order_items`
+-- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT cho bảng `sach`
+-- AUTO_INCREMENT for table `sach`
 --
 ALTER TABLE `sach`
   MODIFY `idbook` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
--- AUTO_INCREMENT cho bảng `theloai`
+-- AUTO_INCREMENT for table `theloai`
 --
 ALTER TABLE `theloai`
   MODIFY `id_loai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `addresses`
+-- Constraints for table `addresses`
 --
 ALTER TABLE `addresses`
   ADD CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
--- Các ràng buộc cho bảng `cart_items`
+-- Constraints for table `cart_items`
 --
 ALTER TABLE `cart_items`
   ADD CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `sach` (`idbook`);
 
 --
--- Các ràng buộc cho bảng `orders`
+-- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`shipping_address_id`) REFERENCES `addresses` (`address_id`) ON DELETE SET NULL;
 
 --
--- Các ràng buộc cho bảng `order_items`
+-- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`idbook`) REFERENCES `sach` (`idbook`);
 
 --
--- Các ràng buộc cho bảng `sach`
+-- Constraints for table `sach`
 --
 ALTER TABLE `sach`
   ADD CONSTRAINT `FKrkx2dq16qno5kkhg0whpluq4w` FOREIGN KEY (`id_loai`) REFERENCES `theloai` (`id_loai`);
