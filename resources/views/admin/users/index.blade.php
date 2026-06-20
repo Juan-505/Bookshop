@@ -40,10 +40,10 @@
                             <td class="py-4 pr-4">
                                 <div class="flex flex-wrap gap-2">
                                     <a href="{{ route('admin.users.edit', $user) }}" class="rounded-xl border border-emerald-200 px-3 py-2 text-sm font-medium text-emerald-700 transition hover:bg-emerald-50">Edit</a>
-                                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}" onsubmit="return confirm('Xóa user này?')">
+                                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}" data-delete-form>
                                         @csrf
                                         @method('DELETE')
-                                        <button class="rounded-xl border border-rose-200 px-3 py-2 text-sm font-medium text-rose-600 transition hover:bg-rose-50">Delete</button>
+                                        <button type="submit" class="rounded-xl border border-rose-200 px-3 py-2 text-sm font-medium text-rose-600 transition hover:bg-rose-50">Delete</button>
                                     </form>
                                 </div>
                             </td>
@@ -54,4 +54,9 @@
         </div>
         </div>
     </div>
+
+    <x-admin.delete-modal
+        title="Xác nhận xóa user"
+        message="Bạn có chắc chắn muốn xóa user này không? Hành động này không thể hoàn tác."
+    />
 </x-layouts.app>
