@@ -52,6 +52,11 @@ class Book extends Model
         return $this->hasMany(OrderItem::class, 'idbook', 'idbook');
     }
 
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class, 'product_id', 'idbook');
+    }
+
     public function scopeSearch(Builder $query, string $term): Builder
     {
         if ($term === '') {

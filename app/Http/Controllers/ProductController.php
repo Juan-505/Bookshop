@@ -14,9 +14,7 @@ class ProductController extends Controller
         $search = trim((string) $request->query('q', ''));
         $parentId = $request->integer('parent');
         $childId = $request->integer('child');
-
         $categories = Category::query()->orderBy('ten_loai')->get();
-
         if ($childId > 0) {
             $childCategory = $categories->firstWhere('id_loai', $childId);
 
@@ -24,16 +22,13 @@ class ProductController extends Controller
                 $parentId = (int) $childCategory->id_cha;
             }
         }
-
         $categoryPaths = Category::buildPaths($categories);
         $categoryFilterIds = [];
-
         if ($childId > 0) {
             $categoryFilterIds = [$childId];
         } elseif ($parentId > 0) {
             $categoryFilterIds = Category::descendantIds($categories, $parentId);
         }
-
         $books = Book::query()
             ->with('category')
             ->search($search)
@@ -42,13 +37,11 @@ class ProductController extends Controller
             ->orderBy('tensach')
             ->paginate(20)
             ->withQueryString();
-
-        return view(
+       return view(
             'products.index',
             compact('books', 'categoryPaths', 'search', 'parentId', 'childId')
         );
     }
-
     public function show(Book $product): View
     {
         $product->load('category');
@@ -71,6 +64,9 @@ class ProductController extends Controller
             ->limit(8)
             ->get();
 
-        return view('products.show', compact('product', 'sameNameProducts', 'sameCategoryProducts'));
+        return view('products.show', compact(
+            'product',
+            'sameNameProducts',
+            'sameCategoryProducts'));
     }
 }

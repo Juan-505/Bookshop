@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Book;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -53,7 +54,10 @@ class ProductController extends Controller
             return back()->withErrors(['delete' => 'Sản phẩm này đã phát sinh đơn hàng nên không thể xóa.']);
         }
 
-        $product->delete();
+        DB::transaction(function () use ($product): void {
+            $product->cartItems()->delete();
+            $product->delete();
+        });
 
         return redirect()->route('admin.products.index')->with('status', 'Đã xóa sản phẩm.');
     }
