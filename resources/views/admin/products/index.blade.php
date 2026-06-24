@@ -29,10 +29,10 @@
                                 <td class="px-4 py-3 text-slate-600">{{ $product->category?->ten_loai ?? '-' }}</td>
                                 <td class="px-4 py-3 text-slate-600">{{ number_format($product->final_price) }} ₫</td>
                                 <td class="px-4 py-3 text-slate-600">{{ $product->hangton }}</td>
-                                <td class="px-4 py-3">
-                                    <div class="flex flex-wrap gap-2">
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <div class="flex items-center gap-2">
                                         <a href="{{ route('admin.products.edit', $product) }}" class="rounded-xl border border-emerald-200 px-3 py-2 text-sm font-medium text-emerald-700 transition hover:bg-emerald-50">Sửa</a>
-                                        <form method="POST" action="{{ route('admin.products.destroy', $product) }}" data-delete-form>
+                                        <form method="POST" action="{{ route('admin.products.destroy', $product) }}" class="inline-block" data-delete-form>
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="rounded-xl border border-rose-200 px-3 py-2 text-sm font-medium text-rose-600 transition hover:bg-rose-50">Xóa</button>
@@ -44,6 +44,8 @@
                     </tbody>
                 </table>
             </div>
+
+            <div>{{ $products->links('components.pagination') }}</div>
         </div>
     </div>
 

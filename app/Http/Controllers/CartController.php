@@ -68,13 +68,13 @@ class CartController extends Controller
         return back()->with('status', 'Đã xóa sản phẩm khỏi giỏ hàng.');
     }
 
-    public function count(): array
+    public function count(): \Illuminate\Http\JsonResponse
     {
         if (! Auth::check()) {
-            return ['count' => 0];
+            return response()->json(['count' => 0]);
         }
 
-        return ['count' => (int) CartItem::query()->where('user_id', Auth::id())->sum('quantity')];
+        return response()->json(['count' => (int) CartItem::query()->where('user_id', Auth::id())->sum('quantity')]);
     }
 
     private function authorizeCartItem(CartItem $cartItem): void

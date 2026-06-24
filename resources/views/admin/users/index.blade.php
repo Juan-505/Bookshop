@@ -37,10 +37,10 @@
                                     </select>
                                 </form>
                             </td>
-                            <td class="py-4 pr-4">
-                                <div class="flex flex-wrap gap-2">
+                            <td class="py-4 pr-4 whitespace-nowrap">
+                                <div class="flex items-center gap-2">
                                     <a href="{{ route('admin.users.edit', $user) }}" class="rounded-xl border border-emerald-200 px-3 py-2 text-sm font-medium text-emerald-700 transition hover:bg-emerald-50">Edit</a>
-                                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}" data-delete-form>
+                                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="inline-block" data-delete-form>
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="rounded-xl border border-rose-200 px-3 py-2 text-sm font-medium text-rose-600 transition hover:bg-rose-50">Delete</button>
@@ -52,6 +52,8 @@
                 </tbody>
             </table>
         </div>
+
+        <div>{{ $users->links('components.pagination') }}</div>
         </div>
     </div>
 

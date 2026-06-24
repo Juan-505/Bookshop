@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index(): View
     {
-        $users = User::query()->orderByDesc('user_id')->get();
+        $users = User::query()->orderByDesc('user_id')->paginate(50);
 
         return view('admin.users.index', compact('users'));
     }
@@ -58,7 +58,11 @@ class UserController extends Controller
             return back()->withErrors(['delete' => 'Bạn không thể tự xóa chính mình.']);
         }
 
-        $user->delete();
+        try {
+            $user->delete();
+        } catch (\Exception $e) {
+            return back()->withErrors(['delete' => 'Không thể xóa người dùng này vì họ đã có đơn hàng hoặc dữ liệu liên kết khác.']);
+        }
 
         return redirect()->route('admin.users.index')->with('status', 'Đã xóa user.');
     }

@@ -65,46 +65,60 @@ class CheckoutController extends Controller
             ? $firstItemName . ' và ' . ($itemsCount - 1) . ' sản phẩm khác' 
             : $firstItemName;
 
-        $order = DB::transaction(function () use ($data, $items, $total, $nameOrder) {
-            $order = Order::create([
-                'user_id' => Auth::id(),
-                'recipient_name_snapshot' => $data['recipient_name'],
-                'phone_number_snapshot' => $data['phone_number'],
-                'full_address_snapshot' => $data['full_address'],
-                'order_date' => now(),
-                'total_amount' => $total,
-                'status' => 'pending',
-                'shipping_fee' => 0,
-                'discount_amount' => 0,
-                'notes' => $data['notes'] ?? null,
-                'name_order' => $nameOrder,
-            ]);
-
-            foreach ($items as $item) {
-                /** @var Book $book */
-                $book = $item['book'];
-                $quantity = (int) $item['quantity'];
-                $unitPrice = (int) $book->final_price;
-
-                OrderItem::create([
-                    'order_id' => $order->order_id,
-                    'idbook' => $book->idbook,
-                    'product_name_snapshot' => $book->tensach,
-                    'quantity' => $quantity,
-                    'unit_price' => $unitPrice,
-                    'subtotal' => $unitPrice * $quantity,
-                    'variation_details' => null,
+        try {
+            $order = DB::transaction(function () use ($data, $items, $total, $nameOrder) {
+                $order = Order::create([
+                    'user_id' => Auth::id(),
+                    'recipient_name_snapshot' => $data['recipient_name'],
+                    'phone_number_snapshot' => $data['phone_number'],
+                    'full_address_snapshot' => $data['full_address'],
+                    'order_date' => now(),
+                    'total_amount' => $total,
+                    'status' => 'pending',
+                    'shipping_fee' => 0,
+                    'discount_amount' => 0,
+                    'notes' => $data['notes'] ?? null,
+                    'name_order' => $nameOrder,
                 ]);
-            }
 
-            if (Auth::check()) {
-                CartItem::query()->where('user_id', Auth::id())->delete();
-            }
+                foreach ($items as $item) {
+                    /** @var Book $book */
+                    $book = Book::where('idbook', $item['book']->idbook)->lockForUpdate()->first();
+                    $quantity = (int) $item['quantity'];
 
-            return $order;
-        });
+                    if (!$book || $book->hangton < $quantity) {
+                        throw new \Exception("Sản phẩm '{$item['book']->tensach}' đã hết hàng hoặc không đủ số lượng trong kho.");
+                    }
 
-        return redirect()->route('checkout.success', $order)->with('status', 'Thanh toán thành công. Đơn hàng đã được tạo.');
+                    $unitPrice = (int) $book->final_price;
+
+                    OrderItem::create([
+                        'order_id' => $order->order_id,
+                        'idbook' => $book->idbook,
+                        'product_name_snapshot' => $book->tensach,
+                        'quantity' => $quantity,
+                        'unit_price' => $unitPrice,
+                        'subtotal' => $unitPrice * $quantity,
+                        'variation_details' => null,
+                    ]);
+
+                    // Update stock and sold counts
+                    $book->hangton -= $quantity;
+                    $book->daban += $quantity;
+                    $book->save();
+                }
+
+                if (Auth::check()) {
+                    CartItem::query()->where('user_id', Auth::id())->delete();
+                }
+
+                return $order;
+            });
+
+            return redirect()->route('checkout.success', $order)->with('status', 'Thanh toán thành công. Đơn hàng đã được tạo.');
+        } catch (\Exception $e) {
+            return back()->withInput()->withErrors(['checkout_error' => $e->getMessage()]);
+        }
     }
 
     public function success(Order $order): View

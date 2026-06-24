@@ -3,7 +3,7 @@
         <div class="rounded-3xl border border-emerald-100 bg-white p-8 shadow-[0_12px_40px_rgba(16,185,129,0.08)]">
             <h1 class="text-3xl font-semibold text-slate-900">Cập nhật user</h1>
             @include('admin._nav')
-            <form method="POST" action="{{ route('admin.users.update', $user) }}" class="mt-8 grid gap-4">
+            <form method="POST" action="{{ route('admin.users.update', $user) }}" class="mt-8 grid gap-4" autocomplete="off">
                 @csrf
                 @method('PUT')
                 @include('admin.users._form', ['user' => $user])

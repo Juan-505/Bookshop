@@ -14,10 +14,10 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
         
-        $totalOrders = Order::where('user_id', $user->user_id)->count();
-        $completedOrders = Order::where('user_id', $user->user_id)->where('status', 'completed')->count();
-        $totalSpent = Order::where('user_id', $user->user_id)->where('status', '!=', 'cancelled')->sum('total_amount');
-        $orders = Order::with('items.book')->where('user_id', $user->user_id)->orderBy('order_date', 'desc')->get();
+        $totalOrders = Order::where('user_id', auth()->id())->count();
+        $completedOrders = Order::where('user_id', auth()->id())->where('status', 'completed')->count();
+        $totalSpent = Order::where('user_id', auth()->id())->where('status', '!=', 'cancelled')->sum('total_amount');
+        $orders = Order::with('items.book')->where('user_id', auth()->id())->orderBy('order_date', 'desc')->get();
 
         return view('dashboard', compact('user', 'totalOrders', 'completedOrders', 'totalSpent', 'orders'));
     }
@@ -45,7 +45,6 @@ class DashboardController extends Controller
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->phone_number = $data['phone_number'];
-        $user->sdt = $data['phone_number'];
         $user->ngay_sinh = $data['ngay_sinh'] ?: null;
 
         if (!empty($data['password'])) {

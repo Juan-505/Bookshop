@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function index(): View
     {
-        $products = Book::query()->with('category')->orderByDesc('idbook')->get();
+        $products = Book::query()->with('category')->orderByDesc('idbook')->paginate(50);
 
         return view('admin.products.index', compact('products'));
     }
